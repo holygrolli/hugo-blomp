@@ -1,0 +1,12 @@
+<figure>
+    <amp-img lightbox="postgallery" src="https://imgs.networkchallenge.de/800x/{{ .src }}" 
+        layout="responsive" width="1600"
+        height="900" alt="{{ .alt }}"
+        srcset="https://imgs.networkchallenge.de/800x/{{ .src }} 800w, https://imgs.networkchallenge.de/400x/{{ .src }} 400w, https://imgs.networkchallenge.de/1600x/{{ .src }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .src }} 2100w">
+    </amp-img>
+    {{ with .title }}
+    <figcaption class="image">
+        {{ . }}
+    </figcaption>
+    {{ end }}
+</figure>

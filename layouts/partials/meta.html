@@ -1,0 +1,17 @@
+<!--Posted by <a href="#">{{ .Site.Params.Author }}</a> on-->
+<div class="clearfix">
+    <div class="fit">
+            {{ if isset . "isPage" }}
+            {{ partial "author.html" (dict "context" .context "isPage" 1) }} <br>
+            {{ else }}
+            {{ partial "author.html" (dict "context" .context "isPage" 0) }} <br>
+            {{ end }}
+    </div>
+    <div class="col mr2"><i class="fa fa-calendar" aria-hidden="true"></i> {{ dateFormat .context.Site.Params.dateform .context.Date }}</div>
+    {{- if isset . "isPage" -}}
+    <div class="col mr2"><i class="fa fa-clock-o" aria-hidden="true"></i> ca. {{ .context.ReadingTime }} Minuten</div>
+    {{- end -}}
+    {{ partial "categories.html" .context}}
+    {{ partial "tags.html" .context}} 
+    <!-- <br style="clear: both"> -->
+</div>

@@ -1,0 +1,35 @@
+               <article class="post-preview">
+                 <header>
+                    <a href="{{ .Permalink }}">
+                        <h2>{{ .Title | safeHTML }}</h2>
+                      </a>
+                      <!-- <p class="post-meta"> -->
+                        <span class="meta">
+                            {{ partial "meta.html" (dict "context" .)}}
+                          </span>
+                      <!-- </p> -->
+                 </header>
+                    
+                    <hr class="small">
+                    <div class="clearfix">
+                      {{ if isset .Params "coverimage" }}
+                      <div class="left mr2">
+
+                        <amp-img alt=".Title"
+                        src="{{ .Site.Params.Imgurl }}/160x/{{ .Params.Coverimage }}"
+                        width="160"
+                        height="120"
+                        layout="fixed">
+                      </amp-img>
+                    </div>
+                      {{ end }}
+                      <div class="overflow-hidden">
+
+                        <p>{{ .Description }}</p>
+                        <a href="{{ .Permalink }}">mehr ...</a>
+                        {{ if isset .Params "coverimage" }}
+                        {{ end }}
+                      </div>
+                    </div>
+                    </article>
+                <hr>

@@ -1,0 +1,20 @@
+{{ partial "header.html" . }}
+{{ partial "site-header.html" . }}
+
+<div class="clearfix" id="content">
+    <div class="sm-col-12 md-col-8 px2 mx-auto">
+
+        {{ $posts := or .Site.Params.PostSummariesFrontPage 4 }}
+        {{ range first $posts (where .Data.Pages "Type" "post") }}
+        {{ .Render "summary"}}
+        {{ end }}
+        <!-- Pager -->
+        <ul class="pager">
+            <li class="next">
+                <a href="{{ absURL "post" }}">Archiv &rarr;</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{{ partial "footer.html" .}}

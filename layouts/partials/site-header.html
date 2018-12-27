@@ -1,0 +1,21 @@
+    <figure class="ampstart-image-fullpage-hero m0 relative mb4">
+        <amp-img width="404" height="720" layout="responsive" srcset="{{ .Site.Params.Imgurl }}/800x/home-bg.jpg 800w, {{ .Site.Params.Imgurl }}/400x/home-bg.jpg 400w, {{ .Site.Params.Imgurl }}/1600x/home-bg.jpg 1600w, {{ .Site.Params.Imgurl }}/2100x/home-bg.jpg 2100w, {{ .Site.Params.Imgurl }}/3200x/home-bg.jpg 3200w" media="(max-width: 415px)" alt="Header Image"></amp-img>
+        <amp-img height="720" layout="fixed-height" srcset="{{ .Site.Params.Imgurl }}/800x/home-bg.jpg 800w, {{ .Site.Params.Imgurl }}/400x/home-bg.jpg 400w, {{ .Site.Params.Imgurl }}/1600x/home-bg.jpg 1600w, {{ .Site.Params.Imgurl }}/2100x/home-bg.jpg 2100w, {{ .Site.Params.Imgurl }}/3200x/home-bg.jpg 3200w" media="(min-width: 416px)" alt="Header Image"></amp-img>
+        <figcaption class="absolute top-0 right-0 bottom-0 left-0">
+            <div class="clearfix">
+                <div class="sm-col-12 md-col-8 mx-auto">
+                    <header class="p3 center">
+                        <h1 class="ampstart-fullpage-hero-heading mb1">
+                        {{if .Title}}{{.Title | safeHTML }}{{else}}{{ .Site.Title }}{{end}}
+                        </h1>
+                    <!-- <span class="ampstart-image-credit h4"> -->
+                      {{if .Description}}{{.Description}}{{else}}Ich hasse das Chaos, aber das Chaos liebt mich. <a href="https://www.aphorismen.de/zitat/48718"><i class="fa fa-copyright" aria-hidden="true"></i></a>{{end}}
+                    <!-- </span> -->
+                  </header>
+                </div>
+            </div>
+            <footer class="absolute left-0 right-0 bottom-0">
+                <a class="ampstart-readmore py3 caps line-height-2 text-decoration-none center block h5" href="#content">Read more</a>
+            </footer>
+        </figcaption>
+    </figure>
