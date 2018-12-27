@@ -16,8 +16,12 @@
         <script custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js" async=""></script>
         <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
         <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+        {{ if .Page.HasShortcode "youtube" }}
         <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+        {{ end }}
+        {{ if .Page.HasShortcode "gist" }}
         <script async custom-element="amp-gist" src="https://cdn.ampproject.org/v0/amp-gist-0.1.js"></script>
+        {{ end }}
 
         <!-- Import other AMP Extensions here -->
         <style amp-custom="">/*! Bassplate | MIT License | http://github.com/basscss/bassplate */
