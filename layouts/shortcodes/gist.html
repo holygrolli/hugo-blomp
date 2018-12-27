@@ -1,6 +1,6 @@
 {{- $gistid := .Get "id" | default (.Get 0) -}}
 <amp-gist
-    data-gistid="{{ .Get 0 }}"
+    data-gistid="{{ $gistid }}"
     layout="fixed-height"
     height="185">
 </amp-gist>
