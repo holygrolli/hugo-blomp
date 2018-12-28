@@ -24,6 +24,7 @@
         <script async custom-element="amp-gist" src="https://cdn.ampproject.org/v0/amp-gist-0.1.js"></script>
         {{ end }}
 
+        <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
         <!-- Import other AMP Extensions here -->
         <style amp-custom="">/*! Bassplate | MIT License | http://github.com/basscss/bassplate */
 
@@ -107,7 +108,7 @@ a:focus, a:hover {
     color: #0085A1;
 }
 
-article p a {
+article p a, .consentPopup a {
     text-decoration: underline;
 }
 
@@ -287,3 +288,4 @@ article figcaption {
       </amp-sidebar>
       <!-- End Sidebar -->
       <!-- End Navbar -->
+
