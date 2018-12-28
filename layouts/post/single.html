@@ -22,27 +22,23 @@
         </div>
             <div class="sidebar relative">
                 <div class="clearfix">
-                    <div class="sm-col-12">
-                      <div class="widget">
+                      <div class="widget p2">
         
-                        <div class="row author-head">
-                            <div class="col-lg-12 col-xs-12">
+                        <div class="col col-12 md-col md-col-12 center title">
                               <a name="author">Erstellt von</a>
-                            </div>
                         </div>
-                        <div class="row author">
                           
-                          <div class="col-lg-12 col-xs-3">
-                            <div class="avatar">
-                                <amp-img src="https://imgs.networkchallenge.de/200x/avatar/{{ (.Page.Scratch.Get "author").avatar }}" 
+                          <div class="col col-4 md-col md-col-12">
+                            <div class="avatar p2 mx-auto">
+                                <amp-img class="circle self-center" src="https://imgs.networkchallenge.de/200x/avatar/{{ (.Page.Scratch.Get "author").avatar }}" 
                                     layout="responsive" width="200"
                                     height="200" alt="author"
                                     srcset="https://imgs.networkchallenge.de/100x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 100w, https://imgs.networkchallenge.de/200x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 200w, https://imgs.networkchallenge.de/400x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 400w">
                                 </amp-img>
-                              <p>{{ (.Page.Scratch.Get "author").name }}</p>
+                              <p class="center">{{ (.Page.Scratch.Get "author").name }}</p>
                             </div>
                           </div>
-                          <div class="col-lg-12 col-xs-9">
+                          <div class="col col-8 md-col md-col-12">
                             <div class="row">
                               <div class="col-xs-12">
                                 <p>
@@ -60,9 +56,7 @@
                               </div>
                               {{ end }}
                           </div>
-                        </div>
                       </div>
-                   </div> 
                   </div>
                   
               </div>
