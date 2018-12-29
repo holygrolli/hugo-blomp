@@ -1,4 +1,10 @@
 {{ partial "header.html" . }}
 {{ partial "site-header.html" .}}
-              {{ .Content }}
+<div class="clearfix" id="content">
+        <div class="sm-col-12 md-col-8 px2 mx-auto">
+            <article>
+                {{ .Content }}
+            </article>
+        </div>
+</div>
 {{ partial "footer.html" . }}
