@@ -22,5 +22,37 @@
             </div>
           </div>
         </amp-consent>
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="clearfix">
+                    <div class="sm-col-12 md-col-9 mx-auto">
+                      <ul class="list-reset flex justify-center items-center">
+                        {{ with .Site.Params.email }}
+                          <li>
+                            <a href="mailto:{{ . }}">
+                              <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                              </span>
+                            </a>
+                          </li>
+                        {{ end }}
+                        {{ range .Site.Params.social }}
+                        <li>
+                          <a href="{{ .url }}">
+                            <span class="fa-stack fa-lg">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i>
+                            </span>
+                          </a>
+                        </li>
+                        {{ end }}
+                      </ul>
+                      <p class="center ampstart-small-text"><a href="/privacypolicy/index.html" title="Datenschutzerklärung">Datenschutzerklärung</a>
+                        <br>Copyright © <a href="{{ absURL "about" }}">Andreas Groll</a> 2018</p>
+                    </div>
+            </div>
+        </footer>
     </body>
 </html>
