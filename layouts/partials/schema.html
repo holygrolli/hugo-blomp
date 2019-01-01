@@ -3,7 +3,7 @@
             {
                 "@context": "http://schema.org",
                 "@type": "Blog",
-                "url": "https://blog.networkchallenge.de",
+                "url": "{{ .Site.BaseURL }}",
                 "headline": "{{.Site.Title}}",
                 "description": "{{ .Site.Params.description }}",
                 "publisher": {
@@ -28,7 +28,7 @@
                   "@type": "BlogPosting",
                   "mainEntityOfPage": {
                     "@type": "Blog",
-                    "@id": "https://blog.networkchallenge.de"
+                    "@id": "{{ .Site.BaseURL }}"
                   },
                   "headline": "{{ .Title | safeHTML }}",
                   "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04-0700" }}",
