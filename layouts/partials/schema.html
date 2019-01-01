@@ -11,7 +11,7 @@
                     "name": "ChaosBlog",
                     "logo": {
                       "@type": "ImageObject",
-                      "url": "{{ absURL "/img/chaosblog.png" }}"
+                      "url": "{{ "/img/chaosblog.png" | absURL }} "
                     }
                   },
                   "author": {
@@ -42,7 +42,7 @@
                     "name": "ChaosBlog",
                     "logo": {
                       "@type": "ImageObject",
-                      "url": "{{ absURL "/img/chaosblog.png" }}"
+                      "url": "{{ "/img/chaosblog.png" | absURL }} "
                     }
                   },
                   "description": "{{ .Description | safeHTML }}",
@@ -61,7 +61,7 @@
                         "name": "ChaosBlog",
                         "logo": {
                           "@type": "ImageObject",
-                          "url": "{{ absURL "/img/chaosblog.png" }}"
+                          "url": "{{ "/img/chaosblog.png" | absURL }} "
                         }
                       }
                 }
