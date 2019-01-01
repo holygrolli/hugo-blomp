@@ -3,7 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-        <meta name="description" content="This is the AMP Boilerplate.">
+        {{- if .Description -}}
+        <meta name="description" content="{{ .Description }}">
+        {{- else -}}
+        <meta name="description" content="{{ .Site.Params.description }}">
+        {{- end -}}
         <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
@@ -259,38 +263,13 @@ article figcaption {
         <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
         
         <link rel="canonical" href=".">
-        <title>My AMP Page</title>
-        <script type="application/ld+json">
-            {
-                "@context": "http://schema.org",
-                "@type": "Webpage",
-                "url": "https://blog.networkchallenge.de",
-                "name": "My Webpage",
-                "headline": "webpage title",
-                "description": "Here is the description",
-                "mainEntityOfPage": {
-                    "@type": "WebPage",
-                    "@id": "https://blog.networkchallenge.de"
-                },
-                "publisher": {
-                    "@type": "Organization",
-                    "name": "The Publisher",
-                    "logo": {
-                        "url": "https://imgs.networkchallenge.de/200x/avatar/groll.jpg",
-                        "width": 175,
-                        "height": 60,
-                        "@type": "ImageObject"
-                    }
-                },
-                "image": {
-                    "@type": "ImageObject",
-                    "url": "https://imgs.networkchallenge.de/1600x/IMG_20181220_191634-02.jpeg",
-                    "width": 1200,
-                    "height": 630
-                }
-            }
-        </script>
-    </head>
+        <title>{{ .Title | safeHTML }} -- {{ .Site.Title }}</title>
+        {{ if .RSSLink }}
+        <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+        <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+        {{ end }}
+        {{ partial "schema.html" . }}
+        </head>
     <body>
     <!-- Start Navbar -->
 <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">

@@ -1,0 +1,70 @@
+{{ if .IsHome }}
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Blog",
+                "url": "https://blog.networkchallenge.de",
+                "headline": "{{.Site.Title}}",
+                "description": "{{ .Site.Params.description }}",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "ChaosBlog",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": "{{ absURL "/img/chaosblog.png" }}"
+                    }
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Andreas Groll"
+                  }
+            }
+        </script>
+        {{ else }}
+            {{ if eq .Type "post" }}
+            <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "BlogPosting",
+                  "mainEntityOfPage": {
+                    "@type": "Blog",
+                    "@id": "https://blog.networkchallenge.de"
+                  },
+                  "headline": "{{ .Title | safeHTML }}",
+                  "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04-0700" }}",
+                  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04-0700" }} ",
+                  "author": {
+                    "@type": "Person",
+                    "name": "{{ (.Page.Scratch.Get "author").name }}"
+                  },
+                   "publisher": {
+                    "@type": "Organization",
+                    "name": "ChaosBlog",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": "{{ absURL "/img/chaosblog.png" }}"
+                    }
+                  },
+                  "description": "{{ .Description | safeHTML }}",
+                  "image": "{{ .Site.Params.Imgurl }}/200x/{{ .Param "image" | default "home-bg.jpg" }}"
+                }
+                </script>
+            {{ else }}
+            <script type="application/ld+json">
+                {
+                    "@context": "http://schema.org",
+                    "@type": "WebPage",
+                    "name": "{{ .Title }}",
+                    "description": "{{ .Description }}",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "ChaosBlog",
+                        "logo": {
+                          "@type": "ImageObject",
+                          "url": "{{ absURL "/img/chaosblog.png" }}"
+                        }
+                      }
+                }
+                </script>
+            {{ end }}
+        {{ end }}
