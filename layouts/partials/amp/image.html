@@ -1,7 +1,14 @@
+{{ $scratch := newScratch }}
+{{ $scratch.Set "width" (.w | default "400") }}
+{{ $scratch.Set "height" (.h | default "300") }}
+{{ if eq .o "p" }}
+{{ $scratch.Set "width" "300" }}
+{{ $scratch.Set "height" "400" }}
+{{ end }}
 <figure>
     <amp-img lightbox="postgallery" src="https://imgs.networkchallenge.de/800x/{{ .src }}" 
-        layout="responsive" width="1600"
-        height="1200" alt="{{ .alt }}"
+        layout="responsive" width="{{ $scratch.Get "width" }}"
+        height="{{ $scratch.Get "height" }}" alt="{{ .alt }}"
         srcset="https://imgs.networkchallenge.de/800x/{{ .src }} 800w, https://imgs.networkchallenge.de/400x/{{ .src }} 400w, https://imgs.networkchallenge.de/1600x/{{ .src }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .src }} 2100w"
         sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw">
     </amp-img>
