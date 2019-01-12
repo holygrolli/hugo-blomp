@@ -13,7 +13,7 @@
         <div class="contentwrapper relative">
 
         
-        <div class="content relative left">
+        <div class="content relative">
           <!-- Post Content -->
           <article>
           {{ replace .Content "<table>" "<table class='table table-hover'>" | replaceRE "<img src=\"/img/([^\"]+[.].*)\" alt=\"([^\"]+)\" title=\"([^\"]+)\" /></p>" "<img src=\"https://imgs.networkchallenge.de/800x/$1\" alt=\"$2\" title=\"$3\" srcset=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\" data-srcset=\"https://imgs.networkchallenge.de/800x/$1 800w, https://imgs.networkchallenge.de/400x/$1 400w, https://imgs.networkchallenge.de/1600x/$1 1600w, https://imgs.networkchallenge.de/2100x/$1 2100w\" data-sizes=\"auto\" class=\"gallery lazyload\" />" | replaceRE "<img src=\"/img/([^\"]+[.].*)\" alt=\"([^\"]+)\" /></p>" "<img src=\"https://imgs.networkchallenge.de/800x/$1\" alt=\"$2\" title=\"$2\" srcset=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\" data-srcset=\"https://imgs.networkchallenge.de/800x/$1 800w, https://imgs.networkchallenge.de/400x/$1 400w, https://imgs.networkchallenge.de/1600x/$1 1600w, https://imgs.networkchallenge.de/2100x/$1 2100w\" data-sizes=\"auto\" class=\"gallery lazyload\" />" | markdownify }}
