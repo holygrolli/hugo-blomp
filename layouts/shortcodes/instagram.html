@@ -1,0 +1,8 @@
+{{- $id := .Get "id" | default (.Get 0) -}}
+<amp-instagram
+    data-shortcode="{{ $id }}"
+    data-captioned
+    width="400"
+    height="400"
+    layout="responsive">
+</amp-instagram>
