@@ -1,0 +1,11 @@
+{{- $activity := .Get "id" | default (.Get 0) -}}
+{{- $title := .Get "title" | default (.Get 1) | default "false" -}}
+{{ if eq $title "false" }}
+<amp-iframe width="auto" height="500"
+            layout="fixed-height"
+            sandbox="allow-scripts allow-same-origin"
+            src="https://connect.garmin.com/modern/activity/embed/{{ $activity }}">
+</amp-iframe>
+{{ else }}
+<a href="https://connect.garmin.com/modern/activity/{{ $activity }}" alt="{{ $title }}">{{ $title }}</a>
+{{ end }}
