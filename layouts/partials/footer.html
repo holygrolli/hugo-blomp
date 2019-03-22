@@ -1,5 +1,5 @@
           <!-- consent-->
-          <amp-consent id="myUserConsent"
+          <amp-consent id="ncCookieConsent"
           layout="nodisplay">
           <script type="application/json">
             {
@@ -17,7 +17,7 @@
               <div class="h2 m1">Cookie-Richtlinie</div>
               <p class="m1">Diese Website benutzt Cookies zur automatisierten Nutzerauswertung mit Google Analytics.</p>
               <p class="m1">Bitte beachten Sie die <a href="{{ "privacypolicy" | absURL }}/" title="Datenschutzerklärung">Datenschutzerklärung</a>!</p>
-              <button on="tap:myUserConsent.accept"
+              <button on="tap:ncCookieConsent.accept" role="button"
                 class="ampstart-btn ampstart-btn-secondary caps mx1">Akzeptieren</button>
             </div>
           </div>
