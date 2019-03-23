@@ -33,28 +33,6 @@
 
         {{ if .Site.GoogleAnalytics }}
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-        <amp-analytics data-block-on-consent="_till_responded" type="gtag" data-credentials="include">
-            <script type="application/json">
-            {
-                "vars" : {
-                    "gtag_id": "{{ .Site.GoogleAnalytics }}",
-                    "config" : {
-                        "{{ .Site.GoogleAnalytics }}": { "groups": "default" }
-                    }
-                },
-                "triggers": {
-                    "openLightbox": {
-                      "on": "click",
-                      "selector": "article figure img",
-                      "vars": {
-                        "event_category": "photos",
-                        "event_name": "openLightbox"
-                      }
-                    }
-                  }
-            }
-        </script>
-        </amp-analytics>
         {{ end }}
         <!-- Import other AMP Extensions here -->
         <style amp-custom="">/*! Bassplate | MIT License | http://github.com/basscss/bassplate */
@@ -390,6 +368,30 @@ amp-consent{background-color: rgb(255,255,255); border: 1px solid red;}
         {{ partial "schema.html" . }}
         </head>
     <body>
+        {{ if .Site.GoogleAnalytics }}
+        <amp-analytics data-block-on-consent="_till_responded" type="gtag" data-credentials="include">
+            <script type="application/json">
+            {
+                "vars" : {
+                    "gtag_id": "{{ .Site.GoogleAnalytics }}",
+                    "config" : {
+                        "{{ .Site.GoogleAnalytics }}": { "groups": "default" }
+                    }
+                },
+                "triggers": {
+                    "openLightbox": {
+                        "on": "click",
+                        "selector": "article figure img",
+                        "vars": {
+                        "event_category": "photos",
+                        "event_name": "openLightbox"
+                        }
+                    }
+                    }
+            }
+        </script>
+        </amp-analytics>
+        {{ end }}
     <!-- Start Navbar -->
 <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
         <div role="button" on="tap:header-sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger md-hide lg-hide pr2">☰</div>
