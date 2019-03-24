@@ -42,11 +42,12 @@
                     "name": "ChaosBlog",
                     "logo": {
                       "@type": "ImageObject",
-                      "url": "{{ "/img/chaosblog.png" | absURL }} "
+                      "url": "{{ "img/chaosblog.png" | absURL }} "
                     }
                   },
                   "description": "{{ .Description | safeHTML }}",
-                  "image": "{{ .Site.Params.Imgurl }}/200x/{{ .Param "image" | default "home-bg.jpg" }}"
+                  "image": 
+                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default "home-bg.jpg" }}"
                 }
                 </script>
             {{ else }}
