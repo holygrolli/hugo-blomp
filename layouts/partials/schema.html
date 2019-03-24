@@ -55,8 +55,8 @@
                 {
                     "@context": "http://schema.org",
                     "@type": "WebPage",
-                    "name": "{{ .Title }}",
-                    "description": "{{ .Description }}",
+                    "name": "{{ .Title | safeHTML }}",
+                    "description": "{{ .Description | safeHTML }}",
                     "publisher": {
                         "@type": "Organization",
                         "name": "ChaosBlog",
