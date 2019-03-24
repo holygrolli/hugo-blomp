@@ -47,7 +47,7 @@
                   },
                   "description": "{{ .Description | safeHTML }}",
                   "image": 
-                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default "home-bg.jpg" }}"
+                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Page.Scratch.Get "firstPostImg") | default "home-bg.jpg" }}"
                 }
                 </script>
             {{ else }}
