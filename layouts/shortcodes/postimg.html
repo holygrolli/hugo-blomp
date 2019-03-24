@@ -6,9 +6,7 @@
 {{ $scratch.Set "height" "400" }}
 {{ end }}
 {{ if (.Page.Scratch.Get "firstPostImg") }}
-isset
 {{ else }}
-notset
 {{ .Page.Scratch.Add "firstPostImg" (.Get "src") }}
 {{ end }}
 <figure>
