@@ -1,0 +1,3 @@
+{{ range first 1 (where .Page.Params.postimgs "name" (.Get 0)) }}
+output: {{ .alt }}
+{{ end }}
