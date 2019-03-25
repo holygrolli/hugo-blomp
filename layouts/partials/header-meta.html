@@ -3,15 +3,7 @@
 {{ else }}
 <meta property="og:url"                content="{{ .Site.BaseURL }}" />
 {{ end }}
-{{ if .IsHome }}
-<meta property="og:type"               content="Blog" />
-{{ else }}
-    {{ if eq .Type "post" }}
-<meta property="og:type"               content="BlogPosting" />
-    {{ else }}
-<meta property="og:type"               content="WebPage" />
-    {{ end }}
-{{ end }}
+<meta property="og:type"               content="website" />
 <meta property="og:title"              content="{{ .Title | safeHTML }}" />
 <meta property="og:description"        content="{{ .Description | safeHTML }}" />
 <!--meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" /-->
