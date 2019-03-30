@@ -8,7 +8,6 @@
         {{- else -}}
         <meta name="description" content="{{ .Site.Params.description }}">
         {{- end -}}
-        {{ partial "header-meta" . }}
         <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
@@ -366,6 +365,8 @@ amp-consent{background-color: rgb(255,255,255); border: 1px solid red;}
         <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
         <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
         {{ end }}
+        {{ partial "schema.html" . }}
+        {{ partial "header-meta" . }}
         </head>
     <body>
         {{ if .Site.GoogleAnalytics }}

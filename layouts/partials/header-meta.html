@@ -6,4 +6,6 @@
 <meta property="og:type"               content="website" />
 <meta property="og:title"              content="{{ .Title | safeHTML }}" />
 <meta property="og:description"        content="{{ .Description | safeHTML }}" />
-<!--meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" /-->
+{{ if (.Scratch.Get "schemaimg") }}
+<meta property="og:image"              content="{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Scratch.Get "schemaimg") | default "home-bg.jpg" }}" />
+{{ end }}

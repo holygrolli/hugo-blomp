@@ -23,6 +23,11 @@
         {{ else }}
             {{ if eq .Type "post" }}
             <script type="application/ld+json">
+              {{ if .Params.images }}
+                {{ range first 1 (where .Params.images "type" "postimg") }}
+                {{ $.Scratch.Set "schemaimg" .src }}
+                {{ end }}
+              {{ end }}
                 {
                   "@context": "http://schema.org",
                   "@type": "BlogPosting",
@@ -47,7 +52,7 @@
                   },
                   "description": "{{ .Description | safeHTML }}",
                   "image": 
-                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Page.Scratch.Get "firstPostImg") | default "home-bg.jpg" }}"
+                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Scratch.Get "schemaimg") | default "home-bg.jpg" }}"
                 }
                 </script>
             {{ else }}
