@@ -1,24 +1,22 @@
+{{ range first 1 (where .Page.Params.images "src" (.Get 0)) }}
 {{ $scratch := newScratch }}
-{{ $scratch.Set "width" (.Get "w" | default "400") }}
-{{ $scratch.Set "height" (.Get "h" | default "300") }}
-{{ if eq (.Get "o") "p" }}
+{{ $scratch.Set "width" (.width | default "400") }}
+{{ $scratch.Set "height" (.height | default "300") }}
+{{ if eq (.orientation | default "l") "p" }}
 {{ $scratch.Set "width" "300" }}
 {{ $scratch.Set "height" "400" }}
 {{ end }}
-{{ if (.Page.Scratch.Get "firstPostImg") }}
-{{ else }}
-{{ .Page.Scratch.Add "firstPostImg" (.Get "src") }}
-{{ end }}
 <figure>
-    <amp-img lightbox="postgallery" src="https://imgs.networkchallenge.de/800x/{{ .Get "src" }}" 
+    <amp-img lightbox="postgallery" src="https://imgs.networkchallenge.de/800x/{{ .src }}" 
         layout="responsive" width="{{ $scratch.Get "width" }}"
-        height="{{ $scratch.Get "height" }}" alt="{{ .Get "alt" }}"
-        srcset="https://imgs.networkchallenge.de/800x/{{ .Get "src" }} 800w, https://imgs.networkchallenge.de/400x/{{ .Get "src" }} 400w, https://imgs.networkchallenge.de/1600x/{{ .Get "src" }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .Get "src" }} 2100w"
+        height="{{ $scratch.Get "height" }}" alt="{{ .alt | default .title }}"
+        srcset="https://imgs.networkchallenge.de/800x/{{ .src }} 800w, https://imgs.networkchallenge.de/400x/{{ .src }} 400w, https://imgs.networkchallenge.de/1600x/{{ .src }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .src }} 2100w"
         sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw">
     </amp-img>
-    {{ with .Get "title" }}
+    {{ with .title }}
     <figcaption class="image">
         {{ . }}
     </figcaption>
     {{ end }}
 </figure>
+{{ end }}
