@@ -22,7 +22,7 @@
         </div>
             <div class="sidebar relative">
                 <div class="clearfix">
-                      <div class="widget p2">
+                      <div class="widget border p2">
         
                         <div class="col col-12 md-col md-col-12 center title">
                               <a name="author">Erstellt von</a>
@@ -56,6 +56,32 @@
                               </div>
                               {{ end }}
                           </div>
+                      </div>
+                  </div>
+                  <div class="clearfix">
+                      <div class="widget p2 mt2">
+        
+                        <div class="col col-12 md-col md-col-12 center">
+                            <amp-web-push
+                            id="amp-web-push"
+                            layout="nodisplay"
+                            helper-iframe-url="{{ "amp-helper-frame.html" | absURL }}?appId={{ .Site.Params.onesignal }}"
+                            permission-dialog-url="{{ "amp-permission-dialog.html" | absURL }}?appId={{ .Site.Params.onesignal }}"
+                            service-worker-url="{{ "OneSignalSDKWorker.js" | absURL }}?appId={{ .Site.Params.onesignal }}"
+                          ></amp-web-push>
+                          <!-- A subscription widget -->
+                  <amp-web-push-widget visibility="unsubscribed" layout="fixed" width="268" height="45">
+                      <button class="subscribe" on="tap:amp-web-push.subscribe">
+                          <i class="fa fa-bell fa-lg mr2" aria-hidden="true"></i> Neuigkeiten abonnieren!
+                      </button>
+                    </amp-web-push-widget>
+
+                    <!-- An unsubscription widget -->
+                    <amp-web-push-widget visibility="subscribed" layout="fixed" width="268" height="45">
+                        <button class="unsubscribe" on="tap:amp-web-push.unsubscribe">
+                            <i class="fa fa-bell-slash fa-lg mr2" aria-hidden="true"></i> Abmelden von Neuigkeiten</button>
+                    </amp-web-push-widget>
+                        </div>
                       </div>
                   </div>
                   
