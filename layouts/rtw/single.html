@@ -3,12 +3,14 @@
 
 <div class="clearfix" id="content">
     <div class="sm-col-12 md-col-8 px2 mx-auto">
+        {{ .Content }}
+        <div class="m2 p2">
+        </div>
         <amp-iframe width=200 height=100 class="mb2"
             layout="responsive"
             sandbox="allow-scripts allow-same-origin"
             src="https://blogamp.networkchallenge.de/osm/weltreise.html">
         </amp-iframe>
-        {{ .Content }}
         {{ range first 10 .Site.Taxonomies.tags.rtw.Pages }}
         {{ .Render "summary"}}
         {{ end }}
