@@ -24,7 +24,8 @@
             {{ if eq .Type "post" }}
             <script type="application/ld+json">
               {{ if .Params.images }}
-                {{ range first 1 (where .Params.images "type" "postimg") }}
+                {{ $images := first 1 (where (where .Params.images "type" "postimg") "featured" true) | default (first 1 (where .Params.images "type" "header")) | default (first 1 (where .Params.images "type" "postimg"))}}
+                {{ range first 1 $images }}
                 {{ $.Scratch.Set "schemaimg" .src }}
                 {{ end }}
               {{ end }}

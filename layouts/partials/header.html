@@ -286,31 +286,27 @@ article figcaption {
     display: block;
 }
 
-{{ if (.Params) }}
-{{ if isset .Params "image" }}
-{{ .Scratch.Set "custombackground" 1}}
-{{ else }}
-{{ .Scratch.Set "custombackground" 0}}
+{{ if .Params.images }}
+    {{ .Scratch.Set "custombackground" ((first 1 (where .Params.images "type" "header")) | default (first 1 (where .Params.images "header" true))) }}
 {{ end }}
-{{ else }}
-{{ .Scratch.Set "custombackground" 0}}
-{{ end }}
-{{ if eq (.Scratch.Get "custombackground") 1 }}
+{{ if (.Scratch.Get "custombackground") }}
+{{ range first 1 (.Scratch.Get "custombackground") }}
 .intro-header {
-    background-image: url('{{ .Site.Params.Imgurl }}/400x/{{ .Params.image }}');
+    background-image: url('{{ $.Site.Params.Imgurl }}/400x/{{ .src }}');
 }
 @media only screen and (min-width:401px){.intro-header {
-    background-image: url('{{ .Site.Params.Imgurl }}/800x/{{ .Params.image }}');
+    background-image: url('{{ $.Site.Params.Imgurl }}/800x/{{ .src }}');
 }}
 @media only screen and (min-width:801px){.intro-header {
-    background-image: url('{{ .Site.Params.Imgurl }}/1600x/{{ .Params.image }}');
+    background-image: url('{{ $.Site.Params.Imgurl }}/1600x/{{ .src }}');
 }}
 @media only screen and (min-width:1601px){.intro-header {
-    background-image: url('{{ .Site.Params.Imgurl }}/2100x/{{ .Params.image }}');
+    background-image: url('{{ $.Site.Params.Imgurl }}/2100x/{{ .src }}');
 }}
 @media only screen and (min-width:2101px){.intro-header {
-    background-image: url('{{ .Site.Params.Imgurl }}/3200x/{{ .Params.image }}');
+    background-image: url('{{ $.Site.Params.Imgurl }}/3200x/{{ .src }}');
 }}
+{{end}}
 {{ else }}
 .intro-header {
     background-image: url('https://imgs.networkchallenge.de/400x/home-bg.jpg');

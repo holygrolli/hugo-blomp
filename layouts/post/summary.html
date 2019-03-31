@@ -1,4 +1,6 @@
-               <article class="post-preview">
+{{ if .Params.images }}
+    {{ .Scratch.Set "coverimg" (first 1 (where .Params.images "featured" true)) }}
+{{ end }}               <article class="post-preview">
                  <header>
                     <a href="{{ .Permalink }}">
                         <h2>{{ .Title | safeHTML }}</h2>
@@ -12,23 +14,23 @@
                     
                     <hr class="small">
                     <div class="clearfix">
-                      {{ if isset .Params "coverimage" }}
+                      {{ if .Scratch.Get "coverimg" }}
+                      {{ range first 1 (.Scratch.Get "coverimg") }}
                       <div class="left mr2">
 
-                        <amp-img alt=".Title"
-                        src="{{ .Site.Params.Imgurl }}/160x/{{ .Params.Coverimage }}"
+                        <amp-img alt="{{ .alt | default .title }}"
+                        src="{{ $.Site.Params.Imgurl }}/160x/{{ .src }}"
                         width="160"
                         height="120"
                         layout="fixed">
                       </amp-img>
                     </div>
                       {{ end }}
+                      {{ end }}
                       <div class="overflow-hidden">
 
                         <p>{{ .Description }}</p>
                         <a href="{{ .Permalink }}">mehr ...</a>
-                        {{ if isset .Params "coverimage" }}
-                        {{ end }}
                       </div>
                     </div>
                     </article>
