@@ -25,9 +25,9 @@
         <amp-web-push
           id="amp-web-push"
           layout="nodisplay"
-          helper-iframe-url="{{ "amp-helper-frame.html" | absURL }}?appId={{ .Site.OnesignalAppId }}"
-          permission-dialog-url="{{ "amp-permission-dialog" | absURL }}?appId={{ .Site.OnesignalAppId }}"
-          service-worker-url="{{ "js/OneSignalSDKWorker.js" | absURL }}?appId={{ .Site.OnesignalAppId }}"
+          helper-iframe-url="{{ "amp-helper-frame.html" | absURL }}?appId={{ .Site.Params.onesignal }}"
+          permission-dialog-url="{{ "amp-permission-dialog" | absURL }}?appId={{ .Site.Params.onesignal }}"
+          service-worker-url="{{ "js/OneSignalSDKWorker.js" | absURL }}?appId={{ .Site.Params.onesignal }}"
         ></amp-web-push>
         <!-- A subscription widget -->
 <amp-web-push-widget visibility="unsubscribed" layout="fixed" width="245" height="45">
