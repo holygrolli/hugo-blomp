@@ -34,7 +34,9 @@
         {{ if .Site.GoogleAnalytics }}
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
         {{ end }}
+        {{ if eq .Type "post" }}
         <script async custom-element="amp-web-push" src="https://cdn.ampproject.org/v0/amp-web-push-0.1.js"></script>
+        {{ end }}
         <!-- Import other AMP Extensions here -->
         <style amp-custom="">/*! Bassplate | MIT License | http://github.com/basscss/bassplate */
 
