@@ -28,7 +28,7 @@
                               <a name="author">Erstellt von</a>
                         </div>
                           
-                          <div class="col col-4 md-col md-col-12">
+                          <div class="col col-4 lg-col lg-col-12">
                             <div class="avatar p2 mx-auto">
                                 <amp-img class="circle self-center" src="https://imgs.networkchallenge.de/200x/avatar/{{ (.Page.Scratch.Get "author").avatar }}" 
                                     layout="responsive" width="200"
@@ -38,22 +38,18 @@
                               <p class="center">{{ (.Page.Scratch.Get "author").name }}</p>
                             </div>
                           </div>
-                          <div class="col col-8 md-col md-col-12">
-                            <div class="row">
+                          <div class="col col-8 lg-col lg-col-12 p2">
                               <div class="col-xs-12">
                                 <p>
                                   {{ (.Page.Scratch.Get "author").intro }}
                                 </p>
                               </div>
-                            </div>
                             {{ if isset (.Page.Scratch.Get "author") "social" }}
-                            <div class="row author-social">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 mt2">
                                     {{ range (.Page.Scratch.Get "author").social }}
                                       <a href="{{ .url }}"><span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i></span></a>
                                     {{ end }}
                                 </div>
-                              </div>
                               {{ end }}
                           </div>
                       </div>

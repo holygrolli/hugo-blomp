@@ -39,7 +39,8 @@
                             </a>
                           </li>
                         {{ end }}
-                        {{ range .Site.Params.social }}
+                        {{ $owner := index .Site.Data.authors "groll" }}
+                        {{ range $owner.social }}
                         <li>
                           <a href="{{ .url }}">
                             <span class="fa-stack fa-lg">
