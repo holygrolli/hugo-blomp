@@ -1,11 +1,20 @@
           <!-- consent-->
+          <amp-geo layout="nodisplay">
+              <script type="application/json">
+                {
+                  "ISOCountryGroups": {
+                    "eu": ["preset-eea"]
+                  }
+                }
+              </script>
+            </amp-geo>
           <amp-consent id="ncCookieConsent"
           layout="nodisplay">
           <script type="application/json">
             {
               "consents": {
                 "ncCookieConsent": {
-                  "checkConsentHref": "{{ "json/ampconsent.json" | absURL }}",
+                  "promptIfUnknownForGeoGroup": "eu",
                   "promptUI": "consentDialog"
                 }
               }
