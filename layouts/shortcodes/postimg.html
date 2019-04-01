@@ -11,7 +11,7 @@
         layout="responsive" width="{{ $scratch.Get "width" }}"
         height="{{ $scratch.Get "height" }}" alt="{{ .alt | default .title }}"
         srcset="https://imgs.networkchallenge.de/800x/{{ .src }} 800w, https://imgs.networkchallenge.de/400x/{{ .src }} 400w, https://imgs.networkchallenge.de/1600x/{{ .src }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .src }} 2100w"
-        sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw">
+        >
     </amp-img>
     {{ with .title }}
     <figcaption class="image">
@@ -20,3 +20,5 @@
     {{ end }}
 </figure>
 {{ end }}
+<!-- see https://github.com/ampproject/amphtml/pull/20968/
+     sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw" -->
