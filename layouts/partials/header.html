@@ -34,7 +34,7 @@
         {{ if .Site.GoogleAnalytics }}
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
         {{ end }}
-        {{ if eq .Type "post" }}
+        {{ if and (eq .Type "post") (eq .Kind "page") }}
         <script async custom-element="amp-web-push" src="https://cdn.ampproject.org/v0/amp-web-push-0.1.js"></script>
         {{ end }}
         <!-- Import other AMP Extensions here -->

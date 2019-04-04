@@ -21,7 +21,7 @@
             }
         </script>
         {{ else }}
-            {{ if eq .Type "post" }}
+            {{ if and (eq .Type "post") (eq .Kind "page") }}
             <script type="application/ld+json">
               {{ if .Params.images }}
                 {{ $images := first 1 (where (where .Params.images "type" "postimg") "featured" true) | default (first 1 (where .Params.images "type" "header")) | default (first 1 (where .Params.images "type" "postimg"))}}
