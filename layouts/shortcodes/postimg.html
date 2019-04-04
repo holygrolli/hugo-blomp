@@ -1,16 +1,40 @@
 {{ range first 1 (where .Page.Params.images "src" (.Get 0)) }}
-{{ $scratch := newScratch }}
-{{ $scratch.Set "width" (.width | default "400") }}
-{{ $scratch.Set "height" (.height | default "300") }}
-{{ if eq (.orientation | default "l") "p" }}
-{{ $scratch.Set "width" "300" }}
-{{ $scratch.Set "height" "400" }}
-{{ end }}
+    {{ $scratch := newScratch }}
+    {{ $scratch.Set "width" (.width | default "400") }}
+    {{ $scratch.Set "height" (.height | default "300") }}
+
+    {{ $sizes := slice 400 800 1600 2100 }}
+    {{ $sizeFallbackMax := 800 }}
+    {{ $sizeFallbackCurrent := 0 }}
+    {{ $srcset := newScratch }}
+    {{ $src := .src}}
+
+    {{ range $sizes }}
+        {{ if ge ($scratch.Get "width") . }}
+            {{ if (lt $sizeFallbackCurrent $sizeFallbackMax) }}
+                {{ $sizeFallbackCurrent = . }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ if (ne $sizeFallbackCurrent 0) }}
+        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" $sizeFallbackCurrent $src) }}
+        {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
+        {{ range $sizes }}
+            {{ if ge ($scratch.Get "width") . }}
+                {{ if (ne $sizeFallbackCurrent .) }}
+                    {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    {{ else }}
+        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) }}
+    {{ end }}
+    
 <figure>
-    <amp-img lightbox="postgallery" src="https://imgs.networkchallenge.de/800x/{{ .src }}" 
+    <amp-img lightbox="postgallery" src="{{ $srcset.Get "src" }}" 
         layout="responsive" width="{{ $scratch.Get "width" }}"
         height="{{ $scratch.Get "height" }}" alt="{{ .alt | default .title }}"
-        srcset="https://imgs.networkchallenge.de/800x/{{ .src }} 800w, https://imgs.networkchallenge.de/400x/{{ .src }} 400w, https://imgs.networkchallenge.de/1600x/{{ .src }} 1600w, https://imgs.networkchallenge.de/2100x/{{ .src }} 2100w"
+        {{ if $srcset.Get "srcset" }}srcset="{{ delimit ($srcset.Get "srcset" | default .src) ", "}}"{{ end }}
         >
     </amp-img>
     {{ with .title }}
