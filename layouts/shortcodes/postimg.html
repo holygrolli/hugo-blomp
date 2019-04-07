@@ -3,11 +3,12 @@
     {{ $scratch.Set "width" (.width | default "400") }}
     {{ $scratch.Set "height" (.height | default "300") }}
 
-    {{ $sizes := slice 400 800 1600 2100 }}
+    {{ $sizes := slice 400 800 1600 2100 3200 }}
     {{ $sizeFallbackMax := 800 }}
     {{ $sizeFallbackCurrent := 0 }}
     {{ $srcset := newScratch }}
     {{ $src := .src}}
+    {{ $srcset.Set "sizeMax" ($scratch.Get "width") }}
 
     {{ range $sizes }}
         {{ if ge ($scratch.Get "width") . }}
@@ -24,12 +25,13 @@
                 {{ if (ne $sizeFallbackCurrent .) }}
                     {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
                 {{ end }}
+                {{ $srcset.Set "sizeMax" . }}
             {{ end }}
         {{ end }}
     {{ else }}
         {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) }}
     {{ end }}
-    
+<div style="max-width: {{ $srcset.Get "sizeMax" }}px;" class="imgwrapper">   
 <figure>
     <amp-img lightbox="postgallery" src="{{ $srcset.Get "src" }}" 
         layout="responsive" width="{{ $scratch.Get "width" }}"
@@ -43,6 +45,7 @@
     </figcaption>
     {{ end }}
 </figure>
+</div> 
 {{ end }}
 <!-- see https://github.com/ampproject/amphtml/pull/20968/
      sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw" -->
