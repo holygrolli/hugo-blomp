@@ -1,8 +1,8 @@
 <div class="col mr2"><i class="fa fa-tags" aria-hidden="true"></i> {{ range $index, $tag :=  .Params.tags }}
   {{- if eq $index 0 -}}
-    <a href="{{ "tags" | absURL }}/{{ urlize . }}">{{ lower . }}</a>
+    <a href="{{ "tags" | absURL }}/{{ urlize . }}/">{{ lower . }}</a>
   {{- else -}}
-    , <a href="{{ "tags" | absURL }}/{{ urlize . }}">{{ lower . }}</a>
+    , <a href="{{ "tags" | absURL }}/{{ urlize . }}/">{{ lower . }}</a>
   {{- end -}}
 {{ end }}
 </div>
