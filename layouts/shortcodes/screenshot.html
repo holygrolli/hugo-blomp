@@ -1,0 +1,16 @@
+{{ range first 1 (where .Page.Params.images "src" (.Get 0)) }}
+<div style="max-width: {{ .width }}px;" class="imgwrapper">   
+<figure>
+    <amp-img lightbox="postgallery" src="{{ (printf "https://imgs.networkchallenge.de/screenshots/%v" .src) }}" 
+        layout="responsive" width="{{ .width }}"
+        height="{{ .height }}" alt="{{ .alt | default .title }}"
+        >
+    </amp-img>
+    {{ with .title }}
+    <figcaption class="image">
+        {{ . }}
+    </figcaption>
+    {{ end }}
+</figure>
+</div> 
+{{ end }}
