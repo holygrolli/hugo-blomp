@@ -18,7 +18,7 @@
         {{ if .Page.HasShortcode "instagram" }}
         <script custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js" async=""></script>
         {{ end }}
-        {{ if .Page.HasShortcode "postimg" }}
+        {{ if or (.Page.HasShortcode "postimg") (.Page.HasShortcode "screenshot") }}
         <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
         {{ end }}
         <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
@@ -119,7 +119,7 @@ a:focus, a:hover {
     color: #0085A1;
 }
 
-article p a, .consentPopup a {
+article:not([class='post-preview']) a, .consentPopup a {
     text-decoration: underline;
 }
 
@@ -201,9 +201,6 @@ article figcaption {
 
 @media (min-width:64.06rem)
 {
-    .avatar {
-        max-width: 190px;
-    }
     .contentwrapper {
         padding-right: 340px;
         overflow: hidden;
@@ -224,6 +221,9 @@ article figcaption {
     }
     .intro-header .page-heading,.intro-header .post-heading,.intro-header .site-heading{padding:150px 0}.intro-header .page-heading h1,.intro-header .site-heading h1{font-size:80px}.intro-header .page-heading .title,.intro-header .site-heading .title{margin: 0}
 }
+.avatar {
+        max-width: 190px;
+    }
 
 .pagination {
   display: inline-block;
@@ -409,6 +409,10 @@ amp-web-push-widget button.subscribe {
         margin-right: auto;
     }
 
+    article table { width: 100%; border-collapse: collapse;font-size: 75%; margin-bottom: 20px;}
+    article table td {border: 1px solid gray; padding: 0px 5px 0px 5px;}
+    article table tr:nth-child(even) {background: #CCC}
+    article table tr:nth-child(odd) {background: #FFF}
 </style>
         <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
         
