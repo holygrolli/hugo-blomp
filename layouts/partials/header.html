@@ -1,3 +1,14 @@
+{{- if eq .Kind "page" -}} 
+    {{- if isset .Params "author" -}} 
+        {{- $author := index .Site.Data.authors .Params.author -}} 
+        {{- $.Page.Scratch.Add "author" $author -}} 
+    {{- else -}} 
+        {{- with .Site.Data}}
+        {{- $author := index .authors "groll" -}} 
+        {{- $.Page.Scratch.Add "author" $author -}} 
+        {{- end -}} 
+    {{- end -}} 
+{{- end -}}
 <!doctype html>
 <html ⚡ lang="de">
     <head>
@@ -20,6 +31,8 @@
         {{ end }}
         {{ if or (.Page.HasShortcode "postimg") (.Page.HasShortcode "screenshot") }}
         <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
+        {{ end }}{{ if and (eq .Type "land") (eq .Kind "page") }}
+        <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
         {{ end }}
         <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
         {{ if .Page.HasShortcode "youtube" }}

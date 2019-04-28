@@ -1,10 +1,4 @@
-{{ if isset .Params "author" }}
-    {{ $author := index .Site.Data.authors .Params.author }}
-    {{ .Page.Scratch.Add "author" $author }}
-{{ else }}
-    {{ $author := index .Site.Data.authors "groll" }}
-    {{ .Page.Scratch.Add "author" $author }}
-{{ end }}
+
 <!-- {{ partial "header.html" (dict "context" . "showmap" 1) }} -->
 {{ partial "header.html" . }}
 {{ partial "page-header.html" . }}
