@@ -8,9 +8,10 @@
         <div class="content relative">
           <!-- Post Content -->
           <article>
+              
           {{ .Content }}
 
-          <h2>Schnappschüsse aus {{ .Title }}</h2>
+          <h2>Schnappschüsse von {{ .Title }}</h2>
             <amp-carousel id="carousel-with-lightbox" height="225"
       layout="fixed-height"
       type="carousel">
@@ -158,8 +159,9 @@
           <div class="content relative left">
                 <h2>Die neuesten Einträge zu {{ .Title }}</h2>
                 {{ range first 10 (intersect .Site.Taxonomies.tags.rtw.Pages (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)))}}
-                {{- .Scratch.Add "type" "land" -}}
+                {{- .Scratch.Set "pagetype" "land" -}}
                 {{ .Render "summary"}}
+                {{- .Scratch.Delete "pagetype" -}}
                 {{ end }}
                 <!-- Pager -->
                 <div class="clearfix">

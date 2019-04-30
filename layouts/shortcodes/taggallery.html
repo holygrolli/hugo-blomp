@@ -1,0 +1,61 @@
+<div class="right-align mt1">Alle Bilder von {{$.Page.Title}}</div>
+<amp-carousel id="carousel-with-lightbox" class="mb1" height="120"
+      layout="fixed-height"
+      type="carousel">
+                {{ $.Page.Scratch.Set "imagecounter" 0}}
+                {{ range sort (where .Site.Pages ".Params.tags" "intersect" (slice $.Page.File.TranslationBaseName)) ".Params.date" "asc"}}
+                    {{ range .Params.images }}
+                        {{ $scratch := newScratch }}
+                        {{ $scratch.Set "width" (.width | default "400") }}
+                        {{ $scratch.Set "height" (.height | default "300") }}
+                        {{ $scratch.Set "prevwidth" (120 | mul ((float ($scratch.Get "height")) | div (float ($scratch.Get "width"))) )}}
+                        {{ $scratch.Set "prevheight" (120)}}
+                    
+                        {{ $sizes := slice 400 800 1600 2100 3200 }}
+                        {{ $sizeFallbackMax := 800 }}
+                        {{ $sizePreviewCurrent := 160 }}
+                        {{ $sizeFallbackCurrent := 0 }}
+                        {{ $srcset := newScratch }}
+                        {{ $src := .src}}
+                        {{ $srcset.Set "sizeMax" ($scratch.Get "width") }}
+                    
+                        {{ range $sizes }}
+                            {{ if ge ($scratch.Get "width") . }}
+                                {{ if (lt $sizeFallbackCurrent $sizeFallbackMax) }}
+                                    {{ $sizeFallbackCurrent = . }}
+                                {{ end }}
+                            {{ end }}
+                            {{ if ge ($scratch.Get "prevwidth") . }}
+                                {{ $sizePreviewCurrent = . }}
+                            {{ end }}
+                        {{ end }}
+                        {{ if (ne $sizeFallbackCurrent 0) }}
+                            {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" $sizeFallbackCurrent $src) }}
+                            {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
+                            {{ range $sizes }}
+                                {{ if ge ($scratch.Get "width") . }}
+                                    {{ if (ne $sizeFallbackCurrent .) }}
+                                        {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
+                                    {{ end }}
+                                    {{ $srcset.Set "sizeMax" . }}
+                                {{ end }}
+                            {{ end }}
+                        {{ else }}
+                            {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) }}
+                        {{ end }}
+                    <amp-img src="https://imgs.networkchallenge.de/{{$sizePreviewCurrent}}x/{{ $src }}"
+                        role="button" tabindex="{{$.Page.Scratch.Get "imagecounter"}}" 
+                        width="{{ $scratch.Get "prevwidth" }}"
+                        height="{{ $scratch.Get "prevheight" }}" alt="{{ .alt | default .title }}"
+                        on="tap:amp-lightbox-gallery.open(id='galleryitem-{{$.Page.Scratch.Get "imagecounter"}}')"
+                        >
+                    </amp-img>
+                    {{$.Page.Scratch.Add "galleryhtml" (printf "<figure><amp-img lightbox=\"postgallery\" src=\"%v\" layout=\"responsive\" width=\"%v\" height=\"%v\" alt=\"%v\" srcset=\"%v\" id=\"galleryitem-%v\" ></amp-img><figcaption class=\"image\">%v</figcaption></figure>" ($srcset.Get "src") ($scratch.Get "width") ($scratch.Get "height") (htmlEscape (.alt | default .title)) (delimit ($srcset.Get "srcset" | default .src) ", ") ($.Page.Scratch.Get "imagecounter") (htmlEscape (.title | default " ")))}}
+                    
+                    {{$.Page.Scratch.Add "imagecounter" 1}}
+                    {{ end }}
+                {{end}}
+</amp-carousel>
+<div hidden>
+    {{$.Page.Scratch.Get "galleryhtml" | safeHTML}}
+</div>

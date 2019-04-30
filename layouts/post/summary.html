@@ -3,10 +3,10 @@
 {{ end }}               <article class="post-preview">
                  <header>
                     <a href="{{ .Permalink }}">
-                      {{- if eq ($.Page.Scratch.Get "type") "land" -}}
+                      {{- if eq ($.Page.Scratch.Get "pagetype") "land" -}}
                         <h3>{{ .Title | safeHTML }}</h3>
                       {{- else -}}
-                        <h2>{{.Type}}{{ .Title | safeHTML }}</h2>
+                        <h2>{{ .Title | safeHTML }}</h2>
                       {{- end -}}
                       </a>
                       <!-- <p class="post-meta"> -->

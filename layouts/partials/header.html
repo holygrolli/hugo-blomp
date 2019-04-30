@@ -30,7 +30,7 @@
         {{ if .Page.HasShortcode "instagram" }}
         <script custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js" async=""></script>
         {{ end }}
-        {{ if or (.Page.HasShortcode "postimg") (.Page.HasShortcode "screenshot") }}
+        {{ if or (.Page.HasShortcode "postimg") (.Page.HasShortcode "screenshot") (eq .Type "land")}}
         <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
         {{ end }}{{ if and (eq .Type "land") (eq .Kind "page") }}
         <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
@@ -378,7 +378,7 @@ body>div.intro-header div.title {
 .ampstart-headerbar {
     background-color: rgba(255,255,255,0.7);
 }
-.ampstart-nav-dropdown .ampstart-dropdown>section>header, .i-amphtml-accordion-header, .ampstart-dropdown>section>header, .ampstart-nav-dropdown amp-accordion ul {
+.ampstart-nav-dropdown .ampstart-dropdown>section>header, .ampstart-dropdown>section>header, .ampstart-nav-dropdown amp-accordion ul {
     background-color: transparent;
     text-align: center;
     color: rgb(0,0,0);
