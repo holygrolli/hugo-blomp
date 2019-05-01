@@ -25,7 +25,7 @@
    
         <script async src="https://cdn.ampproject.org/v0.js"></script>
 
-        <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async=""></script>
+        <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
         {{ if .Page.HasShortcode "instagram" }}
         <script custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js" async=""></script>
         {{ end }}
@@ -429,6 +429,88 @@ amp-web-push-widget button.subscribe {
     article table td {border: 1px solid gray; padding: 0px 5px 0px 5px;}
     article table tr:nth-child(even) {background: #CCC}
     article table tr:nth-child(odd) {background: #FFF}
+
+    .dropdown .dropbtn {
+      background-color: inherit;
+      font-family: inherit;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: rgba(255,255,255,0.7);
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    #topnav {
+        position: fixed;
+        top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 40px 20px 80px;
+    z-index: -1;
+    background-color: #fff;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform .2s ease,opacity .2s ease;
+    }
+
+    #topnav.menuopen {
+        z-index: 100;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #topnav.menuopen .dropdown {
+        float: none;
+      }
+      #topnav.menuopen .dropdown-content {
+        position: relative;
+      }
+      #topnav.menuopen .dropdown .dropbtn {
+        display: block;
+        width: 100%;
+        text-align: left;
+      }
+
+    .burger-menu-items {
+        display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    margin-top: 1rem;
+    padding: 0;
+    overflow-y: auto;
+    }
+    .burger-menu-items ul{
+        display: none;
+    }
+    .burger-menu-item-trigger:checked~ul {
+    display: block;
+}
+    .burger-menu-item-trigger {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 36px;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    background: none transparent;
+    cursor: pointer;
+    }
+
+    .ampstart-headerbar *{
+        z-index: 200;
+    }
 </style>
         <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
         
@@ -484,35 +566,65 @@ amp-web-push-widget button.subscribe {
         {{ end }}
     <!-- Start Navbar -->
 <header class="ampstart-headerbar fixed flex justify-start items-center top-0 left-0 right-0 pl2 pr4">
-        <div role="button" on="tap:header-sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger md-hide lg-hide pr2">☰</div>
+        <div role="button" on="tap:AMP.setState({mainmenuopen: !mainmenuopen})" tabindex="0" class="ampstart-navbar-trigger md-hide lg-hide pr2">☰</div>
         <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
         <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
           <ul class="list-reset right m0 p0 flex justify-center nowrap">
               {{ range .Site.Menus.main }}
+              {{- if .HasChildren -}}
+                <li class="ampstart-nav-item relative dropdown">
+                        <span class="dropbtn">{{ .Name }} 
+                                <i class="fa fa-caret-down"></i>
+                        </span>
+                        <div class="dropdown-content">
+                                <ul class="ampstart-dropdown-items list-reset m0 p0">
+                                  {{- range .Children -}}
+                                    <li class="ampstart-nav-item">
+                                      <a href="{{ .URL }}" class="text-decoration-none">{{ .Title }}</a>
+                                    </li>
+                                  {{- end -}}
+                                </ul>
+                        </div>
+                              
+                      <!-- End Dropdown -->
+                            </li>
+              {{- else -}}
               <li class="ampstart-nav-item ">
                   <a href="{{ .URL }}" class="text-decoration-none block">{{ .Name }}</a>
               </li>
+              {{end}}
+              {{end}}
+          </ul>
+        </nav>
+        <nav id="topnav" [class]="mainmenuopen ? 'topnav menuopen' : 'ampstart-headerbar-nav ampstart-nav md-hide lg-hide'">
+          <ul class="burger-menu-items">
+              {{ range .Site.Menus.main }}
+              {{- if .HasChildren -}}
+                <li class="ampstart-nav-item dropdown relative mt1">
+                        <label>{{ .Name }} 
+                                <i class="fa fa-caret-down"></i>
+                        </label>
+                        <input class="burger-menu-item-trigger" type="checkbox" aria-label="{{ .Name }}">
+                                <ul class="ampstart-dropdown-items list-reset m0 ml1 p0">
+                                  {{- range .Children -}}
+                                    <li class="ampstart-nav-item mt1">
+                                      <a href="{{ .URL }}" class="text-decoration-none">{{ .Title }}</a>
+                                    </li>
+                                  {{- end -}}
+                                </ul>
+                              
+                      <!-- End Dropdown -->
+                            </li>
+              {{- else -}}
+              <li class="ampstart-nav-item mt1">
+                  <a href="{{ .URL }}" class="text-decoration-none block">{{ .Name }}</a>
+              </li>
+              {{end}}
               {{end}}
           </ul>
         </nav>
       </header>
        
-      <!-- Start Sidebar -->
-      <amp-sidebar id="header-sidebar" class="ampstart-sidebar px3 md-hide lg-hide" layout="nodisplay">
-        <div class="flex justify-start items-center ampstart-sidebar-header">
-          <div role="button" on="tap:header-sidebar.toggle" tabindex="0" class="ampstart-navbar-trigger items-start">✕</div>
-        </div>
-        <nav class="ampstart-sidebar-nav ampstart-nav">
-          <ul class="list-reset m0 p0 ampstart-label">
-              {{ range .Site.Menus.main }}
-              <li class="ampstart-nav-item">
-                  <a href="{{ .URL }}">{{ .Name }}</a>
-              </li>
-              {{end}}
-          </ul>
-        </nav>
-       
-      </amp-sidebar>
       <!-- End Sidebar -->
       <!-- End Navbar -->
 
