@@ -26,7 +26,6 @@
         <script async src="https://cdn.ampproject.org/v0.js"></script>
 
         <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async=""></script>
-        <script custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js" async></script>
         {{ if .Page.HasShortcode "instagram" }}
         <script custom-element="amp-instagram" src="https://cdn.ampproject.org/v0/amp-instagram-0.1.js" async=""></script>
         {{ end }}
@@ -378,18 +377,7 @@ body>div.intro-header div.title {
 .ampstart-headerbar {
     background-color: rgba(255,255,255,0.7);
 }
-.ampstart-nav-dropdown .ampstart-dropdown>section>header, .ampstart-dropdown>section>header, .ampstart-nav-dropdown amp-accordion ul {
-    background-color: transparent;
-    text-align: center;
-    color: rgb(0,0,0);
-}
-amp-sidebar .ampstart-nav-dropdown .ampstart-dropdown>section>header {
-    text-align: left;
-}
-.ampstart-nav-dropdown .ampstart-dropdown-item {
-    background-color: rgba(255,255,255,0.7);
-    color: rgb(0,0,0);
-}
+
 amp-consent{background-color: rgb(255,255,255); border: 1px solid red;}
 
 amp-web-push-widget button.subscribe {
@@ -501,30 +489,9 @@ amp-web-push-widget button.subscribe {
         <nav class="ampstart-headerbar-nav ampstart-nav xs-hide sm-hide">
           <ul class="list-reset right m0 p0 flex justify-center nowrap">
               {{ range .Site.Menus.main }}
-                {{- if .HasChildren -}}
-                <li class="ampstart-nav-item ampstart-nav-dropdown relative">
-        
-                        <!-- Start Dropdown -->
-                                <amp-accordion layout="container" disable-session-states="" class="ampstart-dropdown absolute top-0 left-0 right-0 bottom-0">
-                                <section>
-                                  <header>{{ .Name }}</header>
-                                  <ul class="ampstart-dropdown-items list-reset m0 p0">
-                                    {{- range .Children -}}
-                                      <li class="ampstart-dropdown-item">
-                                        <a href="{{ .URL }}" class="text-decoration-none">{{ .Title }}</a>
-                                      </li>
-                                    {{- end -}}
-                                  </ul>
-                                </section>
-                                </amp-accordion>
-                                
-                        <!-- End Dropdown -->
-                              </li>
-                {{- else -}}
-                <li class="ampstart-nav-item ">
-                    <a href="{{ .URL }}" class="text-decoration-none block">{{ .Name }}</a>
-                </li>
-                {{end}}
+              <li class="ampstart-nav-item ">
+                  <a href="{{ .URL }}" class="text-decoration-none block">{{ .Name }}</a>
+              </li>
               {{end}}
           </ul>
         </nav>
@@ -538,30 +505,9 @@ amp-web-push-widget button.subscribe {
         <nav class="ampstart-sidebar-nav ampstart-nav">
           <ul class="list-reset m0 p0 ampstart-label">
               {{ range .Site.Menus.main }}
-              {{- if .HasChildren -}}
-                <li class="ampstart-nav-item ampstart-nav-dropdown relative">
-        
-                        <!-- Start Dropdown -->
-                                <amp-accordion layout="container" disable-session-states="" class="ampstart-dropdown">
-                                <section>
-                                  <header>{{ .Name }}</header>
-                                  <ul class="ampstart-dropdown-items list-reset m0 p0">
-                                    {{- range .Children -}}
-                                      <li class="ampstart-dropdown-item">
-                                        <a href="{{ .URL }}" class="text-decoration-none">{{ .Title }}</a>
-                                      </li>
-                                    {{- end -}}
-                                  </ul>
-                                </section>
-                                </amp-accordion>
-                                
-                        <!-- End Dropdown -->
-                              </li>
-                {{- else -}}
-                <li class="ampstart-nav-item ">
-                    <a href="{{ .URL }}" class="text-decoration-none block">{{ .Name }}</a>
-                </li>
-                {{end}}
+              <li class="ampstart-nav-item">
+                  <a href="{{ .URL }}">{{ .Name }}</a>
+              </li>
               {{end}}
           </ul>
         </nav>
