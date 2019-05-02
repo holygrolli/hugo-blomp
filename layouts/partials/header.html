@@ -596,7 +596,7 @@ amp-web-push-widget button.subscribe {
               {{end}}
           </ul>
         </nav>
-        <nav id="topnav" [class]="mainmenuopen ? 'topnav menuopen' : 'ampstart-headerbar-nav ampstart-nav md-hide lg-hide'">
+        <nav id="topnav" class="ampstart-headerbar-nav ampstart-nav md-hide lg-hide" [class]="mainmenuopen ? 'topnav menuopen' : 'ampstart-headerbar-nav ampstart-nav md-hide lg-hide'">
           <ul class="burger-menu-items">
               {{ range .Site.Menus.main }}
               {{- if .HasChildren -}}
