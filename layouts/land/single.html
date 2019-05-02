@@ -1,5 +1,5 @@
-{{ partial "header.html" . }}
-{{ partial "site-header.html" . }}
+{{- partial "header.html" . -}}
+{{- partial "site-header.html" . -}}
 
 <div class="clearfix" id="content">
         <div class="contentwrapper relative">
@@ -9,69 +9,69 @@
           <!-- Post Content -->
           <article>
               
-          {{ .Content }}
+          {{- .Content -}}
 
-          <h2>Schnappschüsse von {{ .Title }}</h2>
+          <h2>Schnappschüsse von {{- .Title -}}</h2>
             <amp-carousel id="carousel-with-lightbox" height="225"
       layout="fixed-height"
       type="carousel">
-            {{ range sort (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)) ".Params.date" "asc"}}
-                {{ $srcs := newScratch }}
-                {{ range (first 1 (where .Params.images "featured" true))}}
-                    {{ $srcs.Add "list" (slice .src) }}
-                {{ end}}
-                {{ range (first 1 (where .Params.images "header" true))}}
-                    {{ $srcs.Add "list" (slice .src) }}
-                {{ end}}
-                {{ if not ($srcs.Get "list")}}
-                    {{ range (first 1 (where .Params.images "type" "postimg"))}}
-                        {{ $srcs.Add "list" (slice .src) }}
-                    {{ end}}
-                {{ end }}
-                {{ $pageScope := .}}
-                {{ range (where .Params.images "src" "in" (uniq ($srcs.Get "list"))) }}
-                    {{ $scratch := newScratch }}
-                    {{ $scratch.Set "width" (.width | default "400") }}
-                    {{ $scratch.Set "height" (.height | default "300") }}
+            {{- range sort (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)) ".Params.date" "asc"}}
+                {{- $srcs := newScratch -}}
+                {{- range (first 1 (where .Params.images "featured" true))}}
+                    {{- $srcs.Add "list" (slice .src) -}}
+                {{- end}}
+                {{- range (first 1 (where .Params.images "header" true))}}
+                    {{- $srcs.Add "list" (slice .src) -}}
+                {{- end}}
+                {{- if not ($srcs.Get "list")}}
+                    {{- range (first 1 (where .Params.images "type" "postimg"))}}
+                        {{- $srcs.Add "list" (slice .src) -}}
+                    {{- end}}
+                {{- end -}}
+                {{- $pageScope := .}}
+                {{- range (where .Params.images "src" "in" (uniq ($srcs.Get "list"))) -}}
+                    {{- $scratch := newScratch -}}
+                    {{- $scratch.Set "width" (.width | default "400") -}}
+                    {{- $scratch.Set "height" (.height | default "300") -}}
     
-                        {{ $scratch.Set "prevwidth" (225 | mul ((float ($scratch.Get "height")) | div (float ($scratch.Get "width"))) )}}
-                        {{ $scratch.Set "prevheight" (225)}}
+                        {{- $scratch.Set "prevwidth" (225 | mul ((float ($scratch.Get "height")) | div (float ($scratch.Get "width"))) )}}
+                        {{- $scratch.Set "prevheight" (225)}}
                 
-                    {{ $sizes := slice 400 800 1600 2100 3200 }}
-                    {{ $sizeFallbackMax := 800 }}
-                    {{ $sizeFallbackCurrent := 0 }}
-                    {{ $srcset := newScratch }}
-                    {{ $src := .src}}
-                    {{ $srcset.Set "sizeMax" ($scratch.Get "width") }}
+                    {{- $sizes := slice 400 800 1600 2100 3200 -}}
+                    {{- $sizeFallbackMax := 800 -}}
+                    {{- $sizeFallbackCurrent := 0 -}}
+                    {{- $srcset := newScratch -}}
+                    {{- $src := .src}}
+                    {{- $srcset.Set "sizeMax" ($scratch.Get "width") -}}
                 
-                    {{ range $sizes }}
-                        {{ if ge ($scratch.Get "width") . }}
-                            {{ if (lt $sizeFallbackCurrent $sizeFallbackMax) }}
-                                {{ $sizeFallbackCurrent = . }}
-                            {{ end }}
-                        {{ end }}
-                    {{ end }}
-                    {{ if (ne $sizeFallbackCurrent 0) }}
-                        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" "400" $src) }}
-                        {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
-                        {{ range $sizes }}
-                            {{ if ge ($scratch.Get "width") . }}
-                                {{ if (ne $sizeFallbackCurrent .) }}
-                                    {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
-                                {{ end }}
-                                {{ $srcset.Set "sizeMax" . }}
-                            {{ end }}
-                        {{ end }}
-                    {{ else }}
-                        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) }}
-                    {{ end }}
-                    <a href="{{ $pageScope.Permalink }}"><amp-img src="{{ $srcset.Get "src" }}" 
-                        width="{{ $scratch.Get "prevwidth" }}"
-                        height="{{ $scratch.Get "prevheight" }}" alt="{{ .alt | default .title }}"
+                    {{- range $sizes -}}
+                        {{- if ge ($scratch.Get "width") . -}}
+                            {{- if (lt $sizeFallbackCurrent $sizeFallbackMax) -}}
+                                {{- $sizeFallbackCurrent = . -}}
+                            {{- end -}}
+                        {{- end -}}
+                    {{- end -}}
+                    {{- if (ne $sizeFallbackCurrent 0) -}}
+                        {{- $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" "400" $src) -}}
+                        {{- $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
+                        {{- range $sizes -}}
+                            {{- if ge ($scratch.Get "width") . -}}
+                                {{- if (ne $sizeFallbackCurrent .) -}}
+                                    {{- $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
+                                {{- end -}}
+                                {{- $srcset.Set "sizeMax" . -}}
+                            {{- end -}}
+                        {{- end -}}
+                    {{- else -}}
+                        {{- $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) -}}
+                    {{- end -}}
+                    <a href="{{- $pageScope.Permalink -}}"><amp-img src="{{- $srcset.Get "src" -}}" 
+                        width="{{- $scratch.Get "prevwidth" -}}"
+                        height="{{- $scratch.Get "prevheight" -}}" alt="{{- .alt | default .title -}}"
                         >
                     </amp-img></a>
-                {{ end }}
-            {{ end }}
+                {{- end -}}
+            {{- end -}}
             </amp-carousel>
           </article>
           <hr>
@@ -109,22 +109,22 @@
                                 height="200" alt="author"
                                 srcset="https://imgs.networkchallenge.de/100x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 100w, https://imgs.networkchallenge.de/200x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 200w, https://imgs.networkchallenge.de/400x/avatar/{{ (.Page.Scratch.Get "author").avatar }} 400w">
                             </amp-img>
-                          <p class="center">{{ (.Page.Scratch.Get "author").name }}</p>
+                          <p class="center">{{- (.Page.Scratch.Get "author").name -}}</p>
                         </div>
                       </div>
                       <div class="col col-8 lg-col lg-col-12 p2">
                           <div class="col-xs-12">
                             <p>
-                              {{ (.Page.Scratch.Get "author").intro }}
+                              {{- (.Page.Scratch.Get "author").intro -}}
                             </p>
                           </div>
-                        {{ if isset (.Page.Scratch.Get "author") "social" }}
+                        {{- if isset (.Page.Scratch.Get "author") "social" -}}
                             <div class="col-xs-12 mt2">
-                                {{ range (.Page.Scratch.Get "author").social }}
-                                  <a href="{{ .url }}"><span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i></span></a>
-                                {{ end }}
+                                {{- range (.Page.Scratch.Get "author").social -}}
+                                  <a href="{{- .url -}}"><span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i></span></a>
+                                {{- end -}}
                             </div>
-                          {{ end }}
+                          {{- end -}}
                       </div>
                   </div>
               </div>
@@ -135,9 +135,9 @@
                         <amp-web-push
                         id="amp-web-push"
                         layout="nodisplay"
-                        helper-iframe-url="{{ "amp-helper-frame.html" | absURL }}?appId={{ .Site.Params.onesignal }}"
-                        permission-dialog-url="{{ "amp-permission-dialog.html" | absURL }}?appId={{ .Site.Params.onesignal }}"
-                        service-worker-url="{{ "OneSignalSDKWorker.js" | absURL }}?appId={{ .Site.Params.onesignal }}"
+                        helper-iframe-url="{{- "amp-helper-frame.html" | absURL -}}?appId={{- .Site.Params.onesignal -}}"
+                        permission-dialog-url="{{- "amp-permission-dialog.html" | absURL -}}?appId={{- .Site.Params.onesignal -}}"
+                        service-worker-url="{{- "OneSignalSDKWorker.js" | absURL -}}?appId={{- .Site.Params.onesignal -}}"
                       ></amp-web-push>
                       <!-- A subscription widget -->
               <amp-web-push-widget visibility="unsubscribed" layout="fixed" width="268" height="45">
@@ -157,26 +157,26 @@
               
           </div>
           <div class="content relative left">
-                <h2>Die neuesten Einträge zu {{ .Title }}</h2>
-                {{ range first 10 (intersect .Site.Taxonomies.tags.rtw.Pages (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)))}}
+                <h2>Die neuesten Einträge zu {{- .Title -}}</h2>
+                {{- range first 10 (intersect .Site.Taxonomies.tags.rtw.Pages (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)))}}
                 {{- .Scratch.Set "pagetype" "land" -}}
-                {{ .Render "summary"}}
+                {{- .Render "summary"}}
                 {{- .Scratch.Delete "pagetype" -}}
-                {{ end }}
+                {{- end -}}
                 <!-- Pager -->
                 <div class="clearfix">
                     <ul class="list-reset flex justify-center items-center right">
                         <li class="border p1">
-                            <a href="{{ printf "/tags/%v" .File.TranslationBaseName | absURL }}/">Archiv &rarr;</a>
+                            <a href="{{- printf "/tags/%v" .File.TranslationBaseName | absURL -}}/">Archiv &rarr;</a>
                         </li>
                     </ul> 
                 </div>  
                 <hr>
-            {{ partial "comments.html" .}}
+            {{- partial "comments.html" .}}
           </div>
     </div>
 
               
 </div>
 
-{{ partial "footer.html" .}}
+{{- partial "footer.html" .}}

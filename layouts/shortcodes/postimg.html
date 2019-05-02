@@ -1,51 +1,51 @@
-{{ range first 1 (where .Page.Params.images "src" (.Get 0)) }}
-    {{ $scratch := newScratch }}
-    {{ $scratch.Set "width" (.width | default "400") }}
-    {{ $scratch.Set "height" (.height | default "300") }}
+{{- range first 1 (where .Page.Params.images "src" (.Get 0)) -}}
+    {{- $scratch := newScratch -}}
+    {{- $scratch.Set "width" (.width | default "400") -}}
+    {{- $scratch.Set "height" (.height | default "300") -}}
 
-    {{ $sizes := slice 400 800 1600 2100 3200 }}
-    {{ $sizeFallbackMax := 800 }}
-    {{ $sizeFallbackCurrent := 0 }}
-    {{ $srcset := newScratch }}
-    {{ $src := .src}}
-    {{ $srcset.Set "sizeMax" ($scratch.Get "width") }}
+    {{- $sizes := slice 400 800 1600 2100 3200 -}}
+    {{- $sizeFallbackMax := 800 -}}
+    {{- $sizeFallbackCurrent := 0 -}}
+    {{- $srcset := newScratch -}}
+    {{- $src := .src}}
+    {{- $srcset.Set "sizeMax" ($scratch.Get "width") -}}
 
-    {{ range $sizes }}
-        {{ if ge ($scratch.Get "width") . }}
-            {{ if (lt $sizeFallbackCurrent $sizeFallbackMax) }}
-                {{ $sizeFallbackCurrent = . }}
-            {{ end }}
-        {{ end }}
-    {{ end }}
-    {{ if (ne $sizeFallbackCurrent 0) }}
-        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" $sizeFallbackCurrent $src) }}
-        {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
-        {{ range $sizes }}
-            {{ if ge ($scratch.Get "width") . }}
-                {{ if (ne $sizeFallbackCurrent .) }}
-                    {{ $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
-                {{ end }}
-                {{ $srcset.Set "sizeMax" . }}
-            {{ end }}
-        {{ end }}
-    {{ else }}
-        {{ $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) }}
-    {{ end }}
+    {{- range $sizes -}}
+        {{- if ge ($scratch.Get "width") . -}}
+            {{- if (lt $sizeFallbackCurrent $sizeFallbackMax) -}}
+                {{- $sizeFallbackCurrent = . -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if (ne $sizeFallbackCurrent 0) -}}
+        {{- $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%vx/%v" $sizeFallbackCurrent $src) -}}
+        {{- $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" $sizeFallbackCurrent $src $sizeFallbackCurrent))}}
+        {{- range $sizes -}}
+            {{- if ge ($scratch.Get "width") . -}}
+                {{- if (ne $sizeFallbackCurrent .) -}}
+                    {{- $srcset.Add "srcset" (slice (printf "https://imgs.networkchallenge.de/%vx/%v %vw" . $src .))}}
+                {{- end -}}
+                {{- $srcset.Set "sizeMax" . -}}
+            {{- end -}}
+        {{- end -}}
+    {{- else -}}
+        {{- $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) -}}
+    {{- end -}}
 <div style="max-width: {{ $srcset.Get "sizeMax" }}px;" class="imgwrapper">   
 <figure>
     <amp-img lightbox="postgallery" src="{{ $srcset.Get "src" }}" 
         layout="responsive" width="{{ $scratch.Get "width" }}"
         height="{{ $scratch.Get "height" }}" alt="{{ .alt | default .title }}"
-        {{ if $srcset.Get "srcset" }}srcset="{{ delimit ($srcset.Get "srcset" | default .src) ", "}}"{{ end }}
+        {{- if $srcset.Get "srcset" -}}srcset="{{ delimit ($srcset.Get "srcset" | default .src) ", "}}"{{- end -}}
         >
     </amp-img>
-    {{ with .title }}
+    {{- with .title -}}
     <figcaption class="image">
-        {{ . }}
+        {{- . -}}
     </figcaption>
-    {{ end }}
+    {{- end -}}
 </figure>
 </div> 
-{{ end }}
+{{- end -}}
 <!-- see https://github.com/ampproject/amphtml/pull/20968/
      sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw" -->
