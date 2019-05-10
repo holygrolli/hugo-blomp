@@ -11,6 +11,17 @@
           <!-- Post Content -->
           <article>
           {{ .Content }}
+          {{- if .Page.HasShortcode "affiliate" -}}
+          <hr>
+          <h2>
+            <a name="affiliate"></a>Produkte in diesem Artikel (Affiliate-/ Werbelinks):
+          </h2>
+            <ul>
+              {{- range (where .Page.Params.links "type" "affiliate") -}}
+              <li><a href="{{.url}}" title="{{.title}}">{{.title}}</a></li>
+              {{- end -}}
+            </ul>
+          {{- end -}}
           </article>
 
           <hr>
