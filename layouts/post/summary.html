@@ -20,12 +20,17 @@
                     <div class="clearfix">
                       {{ if .Scratch.Get "coverimg" }}
                       {{ range first 1 (.Scratch.Get "coverimg") }}
+                      {{- $scratch := newScratch -}}
+                      {{- $scratch.Set "width" (.width | default "400") -}}
+                      {{- $scratch.Set "height" (.height | default "300") -}}
+                      {{- $scratch.Set "prevwidth" (160) -}}
+                      {{- $scratch.Set "prevheight" (160| mul ((float ($scratch.Get "width")) | div (float ($scratch.Get "height"))) ) -}}
                       <div class="left mr2">
 
                         <amp-img alt="{{ .alt | default .title }}"
                         src="{{ $.Site.Params.Imgurl }}/160x/{{ .src }}"
-                        width="160"
-                        height="120"
+                        width="{{$scratch.Get "prevwidth"}}"
+                        height="{{$scratch.Get "prevheight"}}"
                         layout="fixed">
                       </amp-img>
                     </div>
