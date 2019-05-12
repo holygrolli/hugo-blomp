@@ -157,7 +157,7 @@
               
           </div>
           <div class="content relative left">
-                <h2>Die neuesten Einträge zu {{- .Title -}}</h2>
+                <h2>Die neuesten Einträge zu {{ .Title -}}</h2>
                 {{- range first 10 (intersect .Site.Taxonomies.tags.rtw.Pages (where .Site.Pages ".Params.tags" "intersect" (slice .File.TranslationBaseName)))}}
                 {{- .Scratch.Set "pagetype" "land" -}}
                 {{- .Render "summary"}}
