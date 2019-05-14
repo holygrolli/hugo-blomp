@@ -1,0 +1,19 @@
+{{ partial "header.html" . }}
+{{ partial "site-header.html" . }}
+
+<div class="clearfix" id="content">
+    <div class="sm-col-12 md-col-8 px2 mx-auto">
+
+{{ $paginator := .Paginate (where .Site.Pages "Type" "post") }}
+{{ range $paginator.Pages }}
+    {{ .Render "summary" }}
+{{ end }}
+<div class="clearfix">
+
+    {{ template "_internal/pagination.html" . }}
+</div>
+
+    </div>
+</div>
+
+{{ partial "footer.html" .}}
