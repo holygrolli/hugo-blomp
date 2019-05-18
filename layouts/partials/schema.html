@@ -31,47 +31,111 @@
               {{ end }}
                 {
                   "@context": "http://schema.org",
-                  "@type": "BlogPosting",
-                  "mainEntityOfPage": {
-                    "@type": "Blog",
-                    "@id": "{{ .Site.BaseURL }}"
-                  },
-                  "headline": "{{ .Title | safeHTML }}",
-                  "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
-                  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04-0700" }} ",
-                  "author": {
-                    "@type": "Person",
-                    "name": "{{ (.Page.Scratch.Get "author").name }}"
-                  },
-                   "publisher": {
-                    "@type": "Organization",
-                    "name": "ChaosBlog",
-                    "logo": {
-                      "@type": "ImageObject",
-                      "url": "{{ "img/chaosblog.png" | absURL }} "
-                    }
-                  },
-                  "description": "{{ .Description | safeHTML }}",
-                  "image": 
-                    "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Scratch.Get "schemaimg") | default "home-bg.jpg" }}"
-                }
-                </script>
-            {{ else }}
-            <script type="application/ld+json">
-                {
-                    "@context": "http://schema.org",
-                    "@type": "WebPage",
-                    "name": "{{ .Title | safeHTML }}",
-                    "description": "{{ .Description | safeHTML }}",
-                    "publisher": {
+                  "@graph": [
+                    {
+                      "@type": "BlogPosting",
+                      "mainEntityOfPage": {
+                        "@type": "Blog",
+                        "@id": "{{ .Site.BaseURL }}"
+                      },
+                      "id": "{{ .Permalink }}",
+                      "headline": "{{ .Title | safeHTML }}",
+                      "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
+                      "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04-0700" }} ",
+                      "author": {
+                        "@type": "Person",
+                        "name": "{{ (.Page.Scratch.Get "author").name }}"
+                      },
+                       "publisher": {
                         "@type": "Organization",
                         "name": "ChaosBlog",
                         "logo": {
                           "@type": "ImageObject",
-                          "url": "{{ "/img/chaosblog.png" | absURL }} "
+                          "url": "{{ "img/chaosblog.png" | absURL }} "
                         }
-                      }
+                      },
+                      "description": "{{ .Description | safeHTML }}",
+                      "image": 
+                        "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Scratch.Get "schemaimg") | default "home-bg.jpg" }}"
+                    },
+                    {
+                      "@type": "BreadcrumbList",
+                      "itemListElement":
+                      [
+                      {{- $scratchBreadcrumb := newScratch -}}
+                      {{- $scratchBreadcrumb.Add "index" 1 -}}
+                      {{- template "breadcrumbnav" (dict "p1" . "p2" . "scratch" $scratchBreadcrumb) -}}
+                      ]
+                    }
+                  ]
                 }
                 </script>
+            {{ else if eq .Kind "page" }}
+            <script type="application/ld+json">
+                {
+                    "@context": "http://schema.org",
+                    "@graph": [
+                      {
+                        "@type": "WebPage",
+                        "name": "{{ .Title | safeHTML }}",
+                        "id": "{{ .Permalink }}",
+                        "description": "{{ .Description | safeHTML }}",
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "ChaosBlog",
+                            "logo": {
+                              "@type": "ImageObject",
+                              "url": "{{ "/img/chaosblog.png" | absURL }} "
+                            }
+                          }
+                      },
+                      {
+                        "@type": "BreadcrumbList",
+                        "itemListElement":
+                        [
+                        {{- $scratchBreadcrumb := newScratch -}}
+                        {{- $scratchBreadcrumb.Add "index" 1 -}}
+                        {{- template "breadcrumbnav" (dict "p1" . "p2" . "scratch" $scratchBreadcrumb) -}}
+                        ]
+                      }
+                    ]
+                }
+                </script>
+            {{ else }}
+            <script type="application/ld+json">
+              {
+                  "@context": "http://schema.org",
+                  "@type": "WebPage",
+                  "name": "{{ .Title | safeHTML }}",
+                  "id": "{{ .Permalink }}",
+                  "description": "{{ .Description | safeHTML }}",
+                  "publisher": {
+                      "@type": "Organization",
+                      "name": "ChaosBlog",
+                      "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ "/img/chaosblog.png" | absURL }} "
+                      }
+                    }
+              }
+              </script>
             {{ end }}
         {{ end }}
+
+{{- define "breadcrumbnav" -}}
+{{- if .p1.Parent -}}
+{{- template "breadcrumbnav" (dict "p1" .p1.Parent "p2" .p2 "scratch" .scratch ) -}}
+{{- else if not .p1.IsHome -}}
+{{- template "breadcrumbnav" (dict "p1" .p1.Site.Home "p2" .p2 "scratch" .scratch) -}}
+{{- end -}}
+{{- if ne (.scratch.Get "index") 1 -}},{{- end -}}{
+  "@type": "ListItem",
+  "position": {{- .scratch.Get "index" -}},
+  "item":
+  {
+   "@id": "{{- .p1.Permalink -}}",
+   "name": "{{- .p1.Title -}}"
+   }
+ }
+{{- .scratch.Add "index" 1}}
+{{- end -}}
