@@ -23,6 +23,7 @@ tags:
 - rtw
 - virtualbox
 title: 
+type: post
 images:
 ---
 
