@@ -1,3 +1,6 @@
+{{- range first 1 .Site.Taxonomies.tags.rtw.Pages -}}
+        {{- $.Scratch.Set "overrideLastmod" .Lastmod -}}
+{{- end -}}
 {{ partial "header.html" . }}
 {{ partial "site-header.html" . }}
 
