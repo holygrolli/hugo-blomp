@@ -18,7 +18,6 @@ tags:
 - handy
 - hugo
 - mavic
-- metalsmith
 - payment
 - rtw
 - virtualbox
