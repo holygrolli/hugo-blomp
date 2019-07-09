@@ -31,21 +31,21 @@
     {{- else -}}
         {{- $srcset.Set "src" (printf "https://imgs.networkchallenge.de/%v" $src) -}}
     {{- end -}}
-<div style="max-width: {{ $srcset.Get "sizeMax" }}px;" class="imgwrapper">   
-<figure>
-    <amp-img lightbox="postgallery" src="{{ $srcset.Get "src" }}" 
+{{- if not $.Parent -}}<div style="max-width: {{ $srcset.Get "sizeMax" }}px;" class="imgwrapper">
+<figure>{{- end -}}
+    <amp-img {{if not $.Parent }}lightbox="postgallery"{{ end }} src="{{ $srcset.Get "src" }}" 
         layout="responsive" width="{{ $scratch.Get "width" }}"
         height="{{ $scratch.Get "height" }}" alt="{{ .alt | default .title }}"
         {{- if $srcset.Get "srcset" -}}srcset="{{ delimit ($srcset.Get "srcset" | default .src) ", "}}"{{- end -}}
         >
     </amp-img>
-    {{- with .title -}}
+    {{- if not $.Parent -}}{{- with .title -}}
     <figcaption class="image">
         {{- . -}}
     </figcaption>
-    {{- end -}}
-</figure>
-</div> 
+    {{- end -}}{{- end -}}
+{{- if not $.Parent -}}</figure>
+</div> {{- end -}}
 {{- end -}}
 <!-- see https://github.com/ampproject/amphtml/pull/20968/
      sizes="(min-width:64.06rem) calc(100vw-340px-2*60px), 100vw" -->

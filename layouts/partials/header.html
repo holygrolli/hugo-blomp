@@ -44,6 +44,9 @@
         {{- if or (.Page.HasShortcode "adsense") (and (eq .Kind "page") (or (eq .Type "post") (eq .Type "land"))) -}}
         <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
         {{- end -}}
+        {{- if or (.Page.HasShortcode "postimg-slider") -}}
+        <script async custom-element="amp-image-slider" src="https://cdn.ampproject.org/v0/amp-image-slider-0.1.js"></script>
+        {{- end -}}
 
         <script async custom-element="amp-consent" src="https://cdn.ampproject.org/v0/amp-consent-0.1.js"></script>
         <script async custom-element="amp-geo" src="https://cdn.ampproject.org/v0/amp-geo-0.1.js"></script>

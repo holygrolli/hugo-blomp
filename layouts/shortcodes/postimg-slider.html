@@ -1,0 +1,10 @@
+{{- range first 1 (where .Page.Params.images "src" (.Get 0)) -}}
+<figure>
+<amp-image-slider width="{{ (.width | default "400") }}"
+  height="{{ (.height | default "300") }}"
+  layout="responsive">
+{{- end -}}
+    {{.Inner}}
+</amp-image-slider>
+{{- with (.Get 1 | default (.Get "title")) -}}<figcaption class="image">{{ . }}</figcaption>{{- end -}}
+</figure>
