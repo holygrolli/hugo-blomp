@@ -31,7 +31,7 @@
         {{- end -}}
         {{- if or (.Page.HasShortcode "postimg") (.Page.HasShortcode "screenshot") (and (eq .Type "land") (eq .Kind "page"))}}
         <script async custom-element="amp-lightbox-gallery" src="https://cdn.ampproject.org/v0/amp-lightbox-gallery-0.1.js"></script>
-        {{- end -}}{{- if and (eq .Type "land") (eq .Kind "page") -}}
+        {{- end -}}{{- if or (.Page.HasShortcode "screenshot-carousel") (and (eq .Type "land") (eq .Kind "page")) -}}
         <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
         {{- end -}}
         <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
