@@ -17,7 +17,7 @@
             <a name="affiliate"></a>Produkte in diesem Artikel (Affiliate-/ Werbelinks):
           </h2>
             <ul>
-              {{- range (where .Page.Params.links "type" "affiliate") -}}
+              {{- range sort (where .Page.Params.links "type" "affiliate") "title" -}}
               <li><a href="{{.url}}" title="{{.title}}">{{.title}}</a></li>
               {{- end -}}
             </ul>
