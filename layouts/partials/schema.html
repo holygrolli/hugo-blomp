@@ -7,7 +7,7 @@
                 "headline": "{{.Site.Title}}",
                 "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
                 "dateModified": "{{ (.Scratch.Get "overrideLastmod" | default .Lastmod).Format "2006-01-02T15:04-0700" }} ",
-                "description": "{{ .Site.Params.description }}",
+                "description": "{{ .Site.Params.description | safeJS }}",
                 "publisher": {
                     "@type": "Organization",
                     "name": "ChaosBlog",
@@ -40,7 +40,7 @@
                         "@type": "Blog",
                         "@id": "{{ .Site.BaseURL }}"
                       },
-                      "headline": "{{ .Title | safeHTML }}",
+                      "headline": "{{ replace .Title "&shy;" "" | safeJS }}",
                       "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
                       "dateModified": "{{ (.Scratch.Get "overrideLastmod" | default .Lastmod).Format "2006-01-02T15:04-0700" }} ",
                       "author": {
@@ -55,7 +55,7 @@
                           "url": "{{ "img/chaosblog.png" | absURL }} "
                         }
                       },
-                      "description": "{{ .Description | safeHTML }}",
+                      "description": "{{ .Description | safeJS }}",
                       "image": 
                         "{{ .Site.Params.Imgurl }}/1600x/{{ .Param "image" | default (.Scratch.Get "schemaimg") | default "home-bg.jpg" }}"
                     },
@@ -78,9 +78,9 @@
                     "@graph": [
                       {
                         "@type": "WebPage",
-                        "name": "{{ .Title | safeHTML }}",
+                        "name": "{{ replace .Title "&shy;" "" | safeJS }}",
                         "id": "{{ .Permalink }}",
-                        "description": "{{ .Description | safeHTML }}",
+                        "description": "{{ .Description | safeJS }}",
                         "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
                         "dateModified": "{{ (.Scratch.Get "overrideLastmod" | default .Lastmod).Format "2006-01-02T15:04-0700" }} ",
                         "publisher": {
@@ -109,9 +109,9 @@
               {
                   "@context": "http://schema.org",
                   "@type": "WebPage",
-                  "name": "{{ .Title | safeHTML }}",
+                  "name": "{{ replace .Title "&shy;" "" | safeJS }}",
                   "id": "{{ .Permalink }}",
-                  "description": "{{ .Description | safeHTML }}",
+                  "description": "{{ .Description | safeJS }}",
                   "datePublished": "{{ .Date.Format "2006-01-02T15:04-0700" }}",
                   "dateModified": "{{ (.Scratch.Get "overrideLastmod" | default .Lastmod).Format "2006-01-02T15:04-0700" }} ",
                   "publisher": {
@@ -139,7 +139,7 @@
   "item":
   {
    "@id": "{{- .p1.Permalink -}}",
-   "name": "{{- .p1.Title -}}"
+   "name": "{{- replace .p1.Title "&shy;" "" -}}"
    }
  }
 {{- .scratch.Add "index" 1}}
